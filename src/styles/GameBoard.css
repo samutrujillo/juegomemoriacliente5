@@ -1,0 +1,688 @@
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: transparent;
+  min-height: 100vh;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Quitar logo en la pantalla de juego */
+.game-page .app-title {
+  display: none;
+}
+
+/* Pero mantener el logo en la página de inicio de sesión */
+.login-page .app-title {
+  display: block;
+}
+
+.game-info {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 5px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Barra de estado del juego reorganizada con margen reducido */
+.game-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.table-info {
+  padding: 8px 12px;
+  max-width: 45%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 5px;
+  text-align: center;
+  min-width: 0;
+  flex: 1;
+  margin: 0 5px;
+  color: white;
+}
+
+.turn-status {
+  padding: 8px 12px;
+  max-width: 45%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-radius: 5px;
+  text-align: center;
+  min-width: 0;
+  flex: 1;
+  margin: 0 5px;
+}
+
+/* Hacer el puntaje más destacado con menos margen */
+.game-score {
+  width: 100%;
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  margin: 3px 0;
+  white-space: nowrap;
+}
+
+/* Contador de tiempo con márgenes reducidos */
+.time-display {
+  width: 100%;
+  text-align: center;
+  font-size: 1.3rem;
+  margin: 2px auto 8px auto;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  display: block;
+  color: white;
+}
+
+.your-turn-indicator {
+  background-color: #27ae60;
+  color: white;
+}
+
+.wait-turn-indicator {
+  background-color: #e74c3c;
+  color: white;
+}
+
+/* Modificar el tamaño del tablero con márgenes reducidos */
+.game-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 800px;
+  padding: 15px;
+  background-color: #3b2063;
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin: 10px 0;
+  aspect-ratio: 1 / 1;
+}
+
+/* Área unificada para notificaciones debajo del tablero */
+.notifications-area {
+  width: 100%;
+  position: relative;
+  margin: 10px 0;
+}
+
+/* Estilo para alertas de tiempo y turno */
+.time-alert, .turn-notification {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  text-align: center;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.4rem;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.time-alert {
+  background-color: rgba(255, 87, 34, 0.8);
+  color: white;
+}
+
+.turn-notification {
+  background-color: rgba(39, 174, 96, 0.8);
+  color: white;
+}
+
+/* Estilo para el jugador actual en alineación central */
+.current-player {
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 5px 0;
+  color: white;
+}
+
+.current-player-name {
+  font-weight: bold;
+  color: white;
+}
+
+.timer-value {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #ff5722;
+  animation: pulse 1s infinite;
+}
+
+.time-up {
+  color: #ff0000;
+  animation: blink 1s infinite;
+}
+
+.message {
+  margin: 5px 0;
+  padding: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.your-turn {
+  color: #ffcc00;
+  animation: pulse 1s infinite;
+}
+
+.players-section {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 10px;
+  color: white;
+}
+
+.players-section h3 {
+  text-align: center;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+.game-header h2 {
+  font-size: 1.2rem;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.loading-message {
+  grid-column: span 4;
+  text-align: center;
+  padding: 30px;
+  font-size: 1.2rem;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.retry-button {
+  display: block;
+  margin: 10px auto 0;
+  padding: 8px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.retry-button:hover {
+  background-color: #45a049;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  font-size: 1.5rem;
+  color: white;
+}
+
+/* Restaurar las alertas de puntos, con mejor posición */
+.points-alert {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 12px 25px;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+  z-index: 1000;
+  animation: fadeInOut 2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.points-alert.success {
+  background-color: rgba(76, 175, 80, 0.9);
+  color: white;
+  border: 2px solid #2e7d32;
+}
+
+.points-alert.error {
+  background-color: rgba(244, 67, 54, 0.9);
+  color: white;
+  border: 2px solid #c62828;
+}
+
+/* Estilos para indicadores de conexión */
+.connection-status {
+  padding: 6px;
+  margin: 5px 0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.connected {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4CAF50;
+}
+
+.disconnected {
+  background-color: rgba(244, 67, 54, 0.2);
+  color: #F44336;
+}
+
+/* Información de jugador bloqueado */
+.score-lock-banner {
+  background-color: rgba(244, 67, 54, 0.9);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 5px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  animation: pulse 2s infinite;
+}
+
+/* Información de administrador */
+.admin-info-banner {
+  background-color: rgba(52, 152, 219, 0.9);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 5px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.logout-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.logout-button:hover {
+  background-color: #d32f2f;
+}
+
+.reset-tables-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 10px;
+}
+
+.reset-tables-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Estilo para el botón de admin panel */
+.admin-panel-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #ff4081;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: bold;
+  z-index: 10000;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  border: none;
+  font-size: 14px;
+}
+
+.admin-panel-button:hover {
+  background-color: #f50057;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+  15% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+  .game-container {
+    padding: 8px;
+    gap: 8px;
+  }
+  
+  .game-board {
+    padding: 10px;
+    gap: 8px;
+  }
+  
+  .game-info h2 {
+    font-size: 1.4rem;
+  }
+  
+  .player-item {
+    padding: 8px;
+  }
+  
+  .points-alert {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    max-width: 90%;
+  }
+  
+  /* Ajustar posición del botón admin para tablets */
+  .admin-panel-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .game-header {
+    position: relative;
+    margin-top: 40px; /* Espacio para el botón de admin */
+  }
+}
+
+@media (max-width: 480px) {
+  .game-container {
+    padding: 5px;
+    gap: 5px;
+  }
+  
+  .game-board {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px;
+    gap: 4px;
+    aspect-ratio: 1 / 1;
+  }
+  
+  .table-info, .turn-status {
+    font-size: 0.9rem;
+    padding: 4px 8px;
+    max-width: 45%;
+  }
+  
+  .game-score {
+    font-size: 1.8rem;
+  }
+  
+  .current-player {
+    font-size: 1rem;
+  }
+  
+  .time-display {
+    font-size: 1rem;
+    padding: 4px;
+  }
+  
+  .message {
+    padding: 6px;
+    font-size: 0.9rem;
+  }
+  
+  button {
+    min-height: 40px;
+    min-width: 40px;
+  }
+  
+  .game-info {
+    gap: 3px;
+    margin-bottom: 5px;
+  }
+  
+  .game-header h2 {
+    font-size: 1.1rem;
+    max-width: 60%;
+  }
+  
+  .logout-button {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    min-height: 30px;
+  }
+  
+  .score-lock-banner, .admin-info-banner {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+  
+  /* Ajustar posición del botón admin para móviles pequeños */
+  .admin-panel-button {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+  
+  .game-header {
+    position: relative;
+    margin-top: 35px; /* Espacio para el botón de admin */
+  }
+  
+  /* Ajustar tamaño de alerta para dispositivos móviles */
+  .points-alert {
+    padding: 8px 15px;
+    font-size: 1.1rem;
+    max-width: 80%;
+    top: 18%;
+  }
+}
+
+@media (max-width: 350px) {
+  .game-container {
+    padding: 3px;
+  }
+  
+  .game-board {
+    padding: 4px;
+    gap: 2px;
+  }
+  
+  .table-info, .turn-status {
+    font-size: 0.8rem;
+    padding: 3px 6px;
+  }
+  
+  .game-score {
+    font-size: 0.9rem;
+  }
+  
+  .tile {
+    font-size: 1rem;
+    margin: 1px;
+  }
+  
+  .connection-status, .message {
+    font-size: 0.8rem;
+    padding: 4px;
+  }
+  
+  .logout-button {
+    padding: 3px 6px;
+    font-size: 0.7rem;
+    min-height: 25px;
+  }
+  
+  .game-header h2 {
+    font-size: 0.9rem;
+    max-width: 60%;
+  }
+  
+  .time-display, .current-player {
+    font-size: 0.8rem;
+  }
+  
+  .time-alert, .turn-notification {
+    padding: 6px;
+    font-size: 0.9rem;
+  }
+  
+  /* Reducir aún más para pantallas muy pequeñas */
+  .points-alert {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    max-width: 85%;
+    top: 15%;
+    border-width: 1px;
+  }
+  
+  /* Ajustar posición del botón admin para móviles muy pequeños */
+  .admin-panel-button {
+    padding: 4px 8px;
+    font-size: 10px;
+  }
+  
+  .game-header {
+    margin-top: 30px; /* Espacio para el botón de admin */
+  }
+}
+
+/* Estilos base para la alerta de bloqueo de mesa */
+.table-lock-alert {
+  background-color: rgba(244, 67, 54, 0.9);
+  color: white;
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin: 10px auto;
+  text-align: center;
+  animation: pulse 2s infinite;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  width: 80%;
+  max-width: 600px;
+}
+
+.table-lock-alert p {
+  margin: 0 0 10px 0;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.unlock-all-tables-btn {
+  background-color: #9c27b0;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  margin: 5px auto;
+  display: block;
+  transition: background-color 0.2s;
+}
+
+.unlock-all-tables-btn:hover {
+  background-color: #7b1fa2;
+}
+
+/* Estilos para móviles - significativamente más pequeños */
+@media (max-width: 480px) {
+  .table-lock-alert {
+    width: 70%;
+    padding: 4px 6px;
+    margin: 4px auto;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  
+  .table-lock-alert p {
+    font-size: 0.65rem;
+    margin-bottom: 3px;
+    line-height: 1.1;
+  }
+  
+  .unlock-all-tables-btn {
+    font-size: 0.65rem;
+    padding: 3px 8px;
+    min-height: 0;
+    border-radius: 3px;
+    width: auto;
+    display: inline-block;
+  }
+}
+
+/* Estilos para pantallas muy pequeñas */
+@media (max-width: 360px) {
+  .table-lock-alert {
+    width: 60%;
+    padding: 3px 4px;
+    margin: 3px auto;
+  }
+  
+  .table-lock-alert p {
+    font-size: 0.6rem;
+    margin-bottom: 2px;
+  }
+  
+  .unlock-all-tables-btn {
+    font-size: 0.6rem;
+    padding: 2px 6px;
+  }
+}

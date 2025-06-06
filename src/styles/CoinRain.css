@@ -1,0 +1,55 @@
+.coin-rain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  
+  .coin {
+    position: absolute;
+    top: -100px;
+    animation: coinFall linear forwards;
+    opacity: 0;
+    font-size: 24px;
+    filter: drop-shadow(0 0 5px gold);
+  }
+  
+  @keyframes coinFall {
+    0% {
+      top: -100px;
+      transform: translateY(0) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    100% {
+      top: 100vh;
+      transform: translateY(0) rotate(360deg);
+      opacity: 1;
+    }
+  }
+  
+  /* Optimización para dispositivos de gama alta */
+  @media (min-width: 768px) {
+    .coin {
+      will-change: transform, opacity;
+    }
+  }
+  
+  /* Reducir la cantidad de monedas en dispositivos móviles */
+  @media (max-width: 768px) {
+    .coin {
+      font-size: 20px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .coin {
+      font-size: 16px;
+    }
+  }
