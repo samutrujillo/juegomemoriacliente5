@@ -45,10 +45,10 @@ export default function Game() {
 
       // Crear 2 fichas ganadoras (+30000) y 2 perdedoras (-30000) para esta hilera
       for (let i = 0; i < 2; i++) {
-        rowTiles.push({ value: 30000, revealed: false });  // Asegurarse que es positivo
+        rowTiles.push({ value: 5000, revealed: false });  // Asegurarse que es positivo
       }
       for (let i = 0; i < 2; i++) {
-        rowTiles.push({ value: -30000, revealed: false }); // Asegurarse que es negativo
+        rowTiles.push({ value: -5000, revealed: false }); // Asegurarse que es negativo
       }
 
       // Mezclarlas
@@ -1247,7 +1247,7 @@ socket.on('passwordChanged', ({ message }) => {
         <div className="game-status-bar">
           <div className="table-info">
             Mesa {currentTableNumber}
-          <div className="table-amount">30.000</div>
+          <div className="table-amount">5.000</div>
           </div>
           <div className={`turn-status ${isYourTurn ? 'your-turn-indicator' : 'wait-turn-indicator'}`}>
             {isYourTurn ? "Tu turno" : "Espere su turno"}

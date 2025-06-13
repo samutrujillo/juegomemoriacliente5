@@ -110,7 +110,7 @@ export default function Home() {
   return (
     <main className="login-page">
       <div className="title-container">
-        <h1 className="vip-title">MESA GOLD 30.000</h1></div>
+        <h1 className="vip-title">MESA GOLD 5.000</h1></div>
       <div className="login-container">
         <h2>Iniciar Sesión</h2>
         {error && <div className="error-message">{error}</div>}
