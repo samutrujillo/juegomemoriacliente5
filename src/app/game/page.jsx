@@ -48,7 +48,7 @@ export default function Game() {
         rowTiles.push({ value: 5000, revealed: false });  // Asegurarse que es positivo
       }
       for (let i = 0; i < 2; i++) {
-        rowTiles.push({ value: -5000, revealed: false }); // Asegurarse que es negativo
+        rowTiles.push({ value: -6000, revealed: false }); // Asegurarse que es negativo
       }
 
       // Mezclarlas
