@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import io from 'socket.io-client';
 import '@/styles/Login.css';
 import config from '@/config';
+import smsNotificationService from '@/services/smsNotification';
 
 // Socket.io se iniciará al cargar el componente
 let socket;
@@ -13,6 +14,7 @@ export default function Home() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -34,15 +36,44 @@ export default function Home() {
     };
   }, []);
 
-  const handleSubmit = (e) => {
+  // Función para enviar notificación SMS
+  const sendPlayerOnlineNotification = async (playerName) => {
+    try {
+      // Determinar el tipo de mesa basado en la URL o configuración
+      const mesaType = "GOLD"; // Puedes cambiar esto dinámicamente según la mesa
+      
+      // Enviar notificación SMS
+      const result = await smsNotificationService.notifyPlayerOnline(
+        playerName, 
+        mesaType, 
+        new Date()
+      );
+      
+      if (result.success) {
+        console.log('Notificación SMS enviada correctamente');
+      } else {
+        console.warn('Error enviando notificación SMS:', result.error);
+      }
+    } catch (error) {
+      console.error('Error en notificación SMS:', error);
+      // No mostramos error al usuario para no interrumpir el flujo de login
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
     if (!username || !password) {
       setError('Por favor, ingresa un nombre de usuario y contraseña');
       return;
     }
     
+    setIsLoggingIn(true);
+    setError('');
+    
     console.log(`Intentando iniciar sesión con: ${username}`);
-    socket.emit('login', { username, password }, (response) => {
+    
+    socket.emit('login', { username, password }, async (response) => {
       console.log('Respuesta del servidor:', response);
       
       if (response.success) {
@@ -52,25 +83,34 @@ export default function Home() {
           username: response.username,
           score: response.score,
           isBlocked: response.isBlocked,
-          isAdmin: response.isAdmin  // Asegurarse de que esta línea esté presente
+          isAdmin: response.isAdmin
         };
         
         // Guardar datos completos
         try {
           sessionStorage.setItem('user', JSON.stringify(user));
           console.log('Usuario guardado en sessionStorage:', user);
+          
+          // NUEVA FUNCIONALIDAD: Enviar notificación SMS
+          // Solo enviar notificación si el usuario no es administrador
+          if (!response.isAdmin) {
+            console.log('Enviando notificación SMS para:', response.username);
+            await sendPlayerOnlineNotification(response.username);
+          }
+          
         } catch (error) {
           console.error('Error al guardar usuario en sessionStorage:', error);
         }
         
         // Redirigir según el rol
         if (response.isAdmin) {
-          router.push('/game'); // Cambiado de /admin a /game para usar el mismo panel
+          router.push('/game');
         } else {
           router.push('/game');
         }
       } else {
         setError(response.message || 'Error de inicio de sesión');
+        setIsLoggingIn(false);
       }
     });
   };
@@ -81,7 +121,7 @@ export default function Home() {
     display: 'flex',
     justifyContent: 'center',
     position: 'absolute',
-    bottom: '22%', // Posicionado en la parte inferior de la página pero no muy abajo
+    bottom: '22%',
     left: 0,
     right: 0
   };
@@ -95,7 +135,7 @@ export default function Home() {
   };
 
   const positiveScoreStyle = {
-    color: '#0f0', // Verde más brillante y fluorescente como en la imagen
+    color: '#0f0',
   };
 
   const separatorStyle = {
@@ -104,16 +144,19 @@ export default function Home() {
   };
 
   const negativeScoreStyle = {
-    color: '#f55', // Rojo más brillante como en la imagen
+    color: '#f55',
   };
 
   return (
     <main className="login-page">
       <div className="title-container">
-        <h1 className="vip-title">MESA GOLD 5.000</h1></div>
+        <h1 className="vip-title">MESA GOLD 5.000</h1>
+      </div>
+      
       <div className="login-container">
         <h2>Iniciar Sesión</h2>
         {error && <div className="error-message">{error}</div>}
+        
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
             <label htmlFor="username">Usuario:</label>
@@ -122,8 +165,10 @@ export default function Home() {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              disabled={isLoggingIn}
             />
           </div>
+          
           <div className="form-group">
             <label htmlFor="password">Contraseña:</label>
             <input
@@ -131,17 +176,26 @@ export default function Home() {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              disabled={isLoggingIn}
             />
           </div>
-          <button type="submit" className="login-button">Entrar</button>
+          
+          <button 
+            type="submit" 
+            className="login-button"
+            disabled={isLoggingIn}
+          >
+            {isLoggingIn ? 'Conectando...' : 'Entrar'}
+          </button>
+          
           <a 
-          href="https://m-j-app-game.vercel.app/"
-          className="login-button home-button"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Ir al inicio
-        </a>
+            href="https://m-j-app-game.vercel.app/"
+            className="login-button home-button"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ir al inicio
+          </a>
         </form>
       </div>
     </main>
