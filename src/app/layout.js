@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
             <img src="/images/logo.png" alt="FTAPP GAME" className="logo-image" />
           </div>
           {children}
-          <WhatsAppButton phoneNumber="573016497697" />
+          <WhatsAppButton phoneNumber="573108749801" />
         </div>
       </body>
     </html>
