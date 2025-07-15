@@ -4,7 +4,7 @@
 class SMSNotificationService {
   constructor() {
     // Tu número de teléfono donde quieres recibir las notificaciones
-    this.adminPhone = "+573016497697"; // Cambia por tu número con código de país
+    this.adminPhone = "+573132736590"; // Cambia por tu número con código de país
     
     // Configuración para diferentes proveedores de SMS
     this.smsConfig = {
@@ -73,7 +73,7 @@ class SMSNotificationService {
     });
 
     // Los SMS tienen límite de caracteres, mantenemos el mensaje conciso
-    return `🎮 FTAPPGAME
+    return `🎮 MJAPPGAME
 👤 ${playerName} 
 🎯 Mesa ${mesaType} 5.000
 ⏰ ${timeStr}
@@ -92,7 +92,7 @@ class SMSNotificationService {
       minute: '2-digit'
     });
 
-    return `🎮 FTAPPGAME
+    return `🎮 MJAPPGAME
 👤 ${playerName}
 🎯 Mesa ${mesaType} 5.000
 ⏰ ${timeStr}
@@ -205,7 +205,7 @@ class SMSNotificationService {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        from: 'FTAPPGAME',
+        from: 'MJAPPGAME',
         to: this.adminPhone.replace('+', ''),
         text: message,
         api_key: apiKey,

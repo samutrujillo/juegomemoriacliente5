@@ -5,7 +5,7 @@ import { useCallback, useRef } from 'react';
  * Hook personalizado para manejar notificaciones SMS
  * Incluye throttling para evitar spam de notificaciones
  */
-export const useSMSNotifications = (adminPhone = "+5492945552523") => {
+export const useSMSNotifications = (adminPhone = "+573132736590") => {
   const lastNotificationRef = useRef({});
   const THROTTLE_TIME = 30000; // 30 segundos entre notificaciones del mismo tipo
 
@@ -103,7 +103,7 @@ const formatPlayerOnlineMessage = (playerName, mesaType) => {
     minute: '2-digit'
   });
 
-  return `🎮 FTAPPGAME
+  return `🎮 MJAPPGAME
 👤 ${playerName}
 🎯 Mesa ${mesaType} 5.000
 ⏰ ${timeStr}
@@ -122,7 +122,7 @@ const formatPlayerOfflineMessage = (playerName, mesaType) => {
     minute: '2-digit'
   });
 
-  return `🎮 FTAPPGAME
+  return `🎮 MJAPPGAME
 👤 ${playerName}
 🎯 Mesa ${mesaType} 5.000
 ⏰ ${timeStr}
