@@ -1,6 +1,6 @@
 const config = {
   socketServerUrl: process.env.NODE_ENV === 'production' 
-    ? ''  // NUEVA URL DEL SERVIDOR
+    ? 'https://juegomemoriaservidor5-lwao.onrender.com'  // NUEVA URL DEL SERVIDOR
     : 'http://localhost:5000',
   socketOptions: {
     reconnection: true,
